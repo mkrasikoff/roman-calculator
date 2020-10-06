@@ -5,33 +5,43 @@
 
 Основной рабочие классы: 
                           
-                         Calculator - предназначен для выполнение кода программы, именно в нем находится метод main() и происходит считывание из System.in.
-                         CalculatorExecutor - предназначен для выполнения арифметических операций над обработанными значениями и возвращения их Calculator
-                         CalculatorConvertor - предназначен для обработки полученной из System.in строки, конвертации чисел в int или roman значение и передачи
-                                              обработанных строк в CalculatorExecutor.
+       Calculator - предназначен для выполнение кода программы, именно в нем находится метод main() и происходит считывание из System.in.
+       CalculatorExecutor - предназначен для выполнения арифметических операций над обработанными значениями и возвращения их Calculator
+       CalculatorConvertor - предназначен для обработки полученной из System.in строки, конвертации чисел в int или roman значение и передачи
+                            обработанных строк в CalculatorExecutor.
                                               
 Методы в CalculatorConvertor:
 
-                         public String[] convertate(String input) - необходим для работы со всеми методами в классе, возвращает результат для CalculatorExecutor
-                         public boolean getIsARoman() - геттер информации о том, являются ли числа roman. Нужен для передачи информации для CalculatorExecutor
-                         public String intValueConverter(int num) - необходим для execute() в CalculatorExecutor, для создания String roman из int значения.
-                         private boolean isItInteger(String number) - необходим для проверки внутри convertate(), является ли переданное значение int или нет.
-                         private int romanToDecimal(String str) - необходим для convertate(), если переданное число roman.
-                         private int romanValueConverter(char ch) - необходим для romanToDecimal().
+       public String[] convertate(String input) - необходим для работы со всеми методами в классе, возвращает результат для CalculatorExecutor.
+       
+       private boolean isItInteger(String number) - необходим для проверки внутри convertate(), является ли переданное значение int или нет.
+       private int romanToDecimal(String str) - необходим для convertate(), если переданное число roman.
+       private int romanValueConverter(char ch) - необходим для romanToDecimal().
                          
 Методы в CalculatorExecutor:
 
-                         public int execute(String inputLine) - необходим для работы с методами из CalculatorConvertor и информации, полученной из них. Цель
-                                               метода - получить результат выражения и запомнить в классе String roman значение, если потребуется.
-                         public String getRomanValue() - необходим для получения сохраненного в execute() String roman значения, используется в Calculator.
+       public int execute(String inputLine) - необходим для работы с методами из CalculatorConvertor и информации, полученной из них. Цель
+                             метода - получить результат выражения и запомнить в классе String roman значение, если потребуется.
+                             
+       private String intValueConverter(int num) - необходим для execute() в CalculatorExecutor, для создания String roman из int значения. Находится здесь,
+                             так как используется уже после расчетов, чтобы не оставлять его в качестве public в CalculatorConvertor.
                          
 Методы в Calculator:     
 
-                         public static void main(String[] args) - здесь организован ввод-вывод из программы, точка входа в программу.
-                         public int calculate(String inputLine) - оболочка для вызова метода execute() из CalculatorExecutor. Возвращает результат в переменную.
-                         private String romanResult() - оболочка для получения String roman значения из CalculatorExecutor.
+       public static void main(String[] args) - здесь организован ввод-вывод из программы, точка входа в программу.
+       public int calculate(String inputLine) - оболочка для вызова метода execute() из CalculatorExecutor. Возвращает результат в переменную.
                          
-Программа работает исправно, однако ее структура нуждается в доработке. Так, одна из проблем - это путанница с private и public методами. Здесь программе 
-необходима доработка, в результате которой доступ к работе программы сможет быть осуществлен только через Calculator и его метод calculate().
-                         
-                         
+Программа работает исправно, доступ удобно организован через calculate(), который вызывает execute(), вызывающий в свою очередь convertate(). Эти методы
+в дальнейшем вызывают вспомогательные в своей работе private методы. При неправильном вводе будет выброшено исключение NumberFormatException с просьбой ввести
+данные заново.
+
+Алгоритм преобразования из roman в int работает следующим образом:
+Romans передаются в формате String. Строки анализируются посимвольно и преобразуются в соответствии с числом. Поскольку значения могут быть расположены
+попарно и в зависимости от этого числа могут менять смысл, сразу идет проверка на соседний символ и если обнаруживается что эти числа связаны (если второй
+символ больше первого по значению), то оба числа добавляются как одно. Затем происходит анализ следующих символов. Результат возвращается в виде int.
+
+Алгоритм преобразования из int в roman работает следующим образом:
+Результат передается в формате int. Создается два массива чисел - с String roman значениями и соответствующих им int значений. Результат работы метода
+собирается в формате String через StringBuilder. Вначале идет проверка на 0 и отрицательные значения. Затем начинается проверка числа с большего значения,
+если переданное значение успешно делится на значение из массива, то в StringBuilder добавляются цифры, а дальнейшая работа продолжается с остатком от деления.
+В результате получается String roman значение.
