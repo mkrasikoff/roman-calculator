@@ -1,47 +1,48 @@
-# Calculator
-Реализация калькулятора на языке программирования Java, который умеет работать с целыми и римскими числами. Условия - числа должны быть в диапазоне от 1 до 10.
+# Roman Calculator: Java Application
 
-Схема работы программы следующая:
+Java Calculator is a simple application written in Java that performs basic arithmetic operations - addition, subtraction, multiplication, and division. The calculator can handle both Roman and Arabic numerals, providing a versatile tool for number calculations.
 
-Основной рабочие классы: 
-                          
-       Calculator - предназначен для выполнение кода программы, именно в нем находится метод main() и происходит считывание из System.in.
-       CalculatorExecutor - предназначен для выполнения арифметических операций над обработанными значениями и возвращения их Calculator
-       CalculatorConvertor - предназначен для обработки полученной из System.in строки, конвертации чисел в int или roman значение и передачи
-                            обработанных строк в CalculatorExecutor.
-                                              
-Методы в CalculatorConvertor:
+## Features
 
-       public String[] convertate(String input) - необходим для работы со всеми методами в классе, возвращает результат для CalculatorExecutor.
-       
-       private boolean isItInteger(String number) - необходим для проверки внутри convertate(), является ли переданное значение int или нет.
-       private int romanToDecimal(String str) - необходим для convertate(), если переданное число roman.
-       private int romanValueConverter(char ch) - необходим для romanToDecimal().
-                         
-Методы в CalculatorExecutor:
+1. **Arithmetic Operations**: Supports the basic arithmetic operations - addition, subtraction, multiplication, and division.
 
-       public int execute(String inputLine) - необходим для работы с методами из CalculatorConvertor и информации, полученной из них. Цель
-                             метода - получить результат выражения и запомнить в классе String roman значение, если потребуется.
-                             
-       private String intValueConverter(int num) - необходим для execute() в CalculatorExecutor, для создания String roman из int значения. Находится здесь,
-                             так как используется уже после расчетов, чтобы не оставлять его в качестве public в CalculatorConvertor.
-                         
-Методы в Calculator:     
+2. **Numerals**: Handles both Roman and Arabic numerals. The Roman numerals should be in uppercase.
 
-       public static void main(String[] args) - здесь организован ввод-вывод из программы, точка входа в программу.
-       public int calculate(String inputLine) - оболочка для вызова метода execute() из CalculatorExecutor. Возвращает результат в переменную.
-                         
-Программа работает исправно, доступ удобно организован через calculate(), который вызывает execute(), вызывающий в свою очередь convertate(). Эти методы
-в дальнейшем вызывают вспомогательные в своей работе private методы. При неправильном вводе будет выброшено исключение NumberFormatException с просьбой ввести
-данные заново.
+3. **Operands**: Supports operands from 1 to 10 (inclusive) for both Roman and Arabic numerals.
 
-Алгоритм преобразования из roman в int работает следующим образом:
-Romans передаются в формате String. Строки анализируются посимвольно и преобразуются в соответствии с числом. Поскольку значения могут быть расположены
-попарно и в зависимости от этого числа могут менять смысл, сразу идет проверка на соседний символ и если обнаруживается что эти числа связаны (если второй
-символ больше первого по значению), то оба числа добавляются как одно. Затем происходит анализ следующих символов. Результат возвращается в виде int.
+## Project Structure
 
-Алгоритм преобразования из int в roman работает следующим образом:
-Результат передается в формате int. Создается два массива чисел - с String roman значениями и соответствующих им int значений. Результат работы метода
-собирается в формате String через StringBuilder. Вначале идет проверка на 0 и отрицательные значения. Затем начинается проверка числа с большего значения,
-если переданное значение успешно делится на значение из массива, то в StringBuilder добавляются цифры, а дальнейшая работа продолжается с остатком от деления.
-В результате получается String roman значение.
+The project is divided into several packages:
+
+1. `main.java`: Contains the main `Calculator` class to run the application.
+
+2. `main.java.parser`: Houses the `InputParser` class which parses and validates the user input.
+
+3. `main.java.model`: Includes the `OperationDetails` class that encapsulates the details of an operation.
+
+4. `main.java.executor`: Contains the `CalculatorExecutor` class, responsible for executing the calculations.
+
+5. `main.java.operation`: Contains the `OperationType` enum which represents the supported operations.
+
+6. `main.java.converter`: Contains classes for numeral conversions - `DecimalToRomanConverter` and `RomanToDecimalConverter`.
+
+## How to Use
+
+To use the calculator, simply input the operation to be performed in the console in the following format:
+
+`<number> <operation> <number>`
+
+
+For example, you could enter `3 + 2` or `II * III`. The result will be displayed on the next line.
+
+## Errors and Exceptions
+
+If an invalid operation is inputted (such as using numbers outside the range 1-10, or using unsupported operations), the program will throw an `IllegalArgumentException` with a suitable error message.
+
+## Future Improvements
+
+1. Remove value restriction.
+
+2. Migrate to Spring, Spring Shell to create a terminal application.
+
+3. Add tests.
