@@ -7,7 +7,7 @@ import java.util.List;
 
 public class InputParser {
 
-    private final String NUMBERS_RANGE_EXCEPTION = "Operands should be between 1 and 10 inclusive.";
+    private final String NUMBERS_RANGE_EXCEPTION = "Operands should be between 1 and 31 inclusive.";
     private final String INVALID_ROMAN_EXCEPTION = "Invalid Roman numeral.";
 
     public OperationDetails parse(String input) {
@@ -47,14 +47,14 @@ public class InputParser {
     }
 
     private boolean isValidRoman(String number) {
-        List<String> validRomanNumerals = Arrays.asList("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X");
+        List<String> validRomanNumerals = Arrays.asList("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI");
         return validRomanNumerals.contains(number);
     }
 
     private boolean isValidDecimal(String number) {
         try {
             int value = Integer.parseInt(number);
-            return value >= 1 && value <= 10;
+            return value >= 1 && value <= 31;
         } catch (NumberFormatException exception) {
             return false;
         }
