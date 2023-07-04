@@ -23,6 +23,12 @@ public class RomanCalculatorApplication implements CommandLineRunner {
             while (true) {
                 System.out.println("Please enter an operation to perform:");
                 String inputLine = scanner.nextLine();
+
+                if (inputLine == null || inputLine.trim().isEmpty()) {
+                    System.out.println("You must enter a valid operation!");
+                    continue;
+                }
+
                 try {
                     System.out.println(calculate(inputLine));
                 } catch (Exception e) {
