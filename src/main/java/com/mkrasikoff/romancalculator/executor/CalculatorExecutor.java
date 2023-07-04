@@ -1,17 +1,26 @@
-package main.java.executor;
+package com.mkrasikoff.romancalculator.executor;
 
-import main.java.parser.InputParser;
-import main.java.converter.DecimalToRomanConverter;
-import main.java.converter.RomanToDecimalConverter;
-import main.java.model.OperationDetails;
-import main.java.operation.OperationType;
+import com.mkrasikoff.romancalculator.parser.InputParser;
+import com.mkrasikoff.romancalculator.converter.DecimalToRomanConverter;
+import com.mkrasikoff.romancalculator.converter.RomanToDecimalConverter;
+import com.mkrasikoff.romancalculator.model.OperationDetails;
+import com.mkrasikoff.romancalculator.operation.OperationType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CalculatorExecutor {
 
     private final String NUMBER_FORMAT_EXCEPTION = "Wrong input format. Try again with another numbers.";
-    private final InputParser inputParser = new InputParser();
-    private final DecimalToRomanConverter decimalToRomanConverter = new DecimalToRomanConverter();
-    private final RomanToDecimalConverter romanToDecimalConverter = new RomanToDecimalConverter();
+
+    @Autowired
+    private InputParser inputParser;
+
+    @Autowired
+    private DecimalToRomanConverter decimalToRomanConverter;
+
+    @Autowired
+    private RomanToDecimalConverter romanToDecimalConverter;
 
     public String execute(String inputLine) {
         try {

@@ -1,5 +1,8 @@
-package main.java.converter;
+package com.mkrasikoff.romancalculator.converter;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class RomanToDecimalConverter {
 
     public int convert(String str) {

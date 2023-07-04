@@ -1,5 +1,8 @@
-package main.java.converter;
+package com.mkrasikoff.romancalculator.converter;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class DecimalToRomanConverter {
 
     private static final String[] ROMAN_NUMERALS = new String[] { "I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M" };

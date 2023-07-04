@@ -1,4 +1,4 @@
-package main.java.model;
+package com.mkrasikoff.romancalculator.model;
 
 public class OperationDetails {
 

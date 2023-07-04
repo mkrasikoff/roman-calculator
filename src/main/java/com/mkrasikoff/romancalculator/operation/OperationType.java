@@ -1,4 +1,4 @@
-package main.java.operation;
+package com.mkrasikoff.romancalculator.operation;
 
 public enum OperationType {
 
@@ -48,4 +48,3 @@ public enum OperationType {
         throw new IllegalArgumentException("Invalid operation: " + symbol);
     }
 }
-

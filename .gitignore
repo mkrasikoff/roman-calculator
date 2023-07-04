@@ -1,4 +1,5 @@
 # Project exclude paths
 /out/
 .idea
-Calculator.iml
+roman-calculator.iml
+/target/

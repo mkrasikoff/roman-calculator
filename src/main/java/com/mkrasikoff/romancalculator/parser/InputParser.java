@@ -1,10 +1,12 @@
-package main.java.parser;
+package com.mkrasikoff.romancalculator.parser;
 
-import main.java.model.OperationDetails;
+import com.mkrasikoff.romancalculator.model.OperationDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Component
 public class InputParser {
 
     private final String NUMBERS_RANGE_EXCEPTION = "Operands should be between 1 and 31 inclusive.";
