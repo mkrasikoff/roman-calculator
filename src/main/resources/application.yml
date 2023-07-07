@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: roman-calculator
+    version: v10
+  banner:
+    location: banner.txt
+logging:
+  level:
+    root: OFF
