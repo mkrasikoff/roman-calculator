@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CalculatorExecutor {
 
-    private final String NUMBER_FORMAT_EXCEPTION = "Wrong input format. Try again with another numbers.";
+    private static final String NUMBER_FORMAT_EXCEPTION = "Wrong input format. Try again with another numbers.";
+    private static final String ROMANS_CANNOT_BE_NEGATIVE_EXCEPTION = "Roman numerals cannot be negative.";
 
     @Autowired
     private InputParser inputParser;
@@ -30,6 +31,10 @@ public class CalculatorExecutor {
             int secondNumber;
 
             if (operationDetails.isRoman()) {
+                if(operationDetails.isNegativeResult()) {
+                    throw new IllegalArgumentException(ROMANS_CANNOT_BE_NEGATIVE_EXCEPTION);
+                }
+
                 firstNumber = romanToDecimalConverter.convert(operationDetails.getFirstOperand());
                 secondNumber = romanToDecimalConverter.convert(operationDetails.getSecondOperand());
             } else {
@@ -39,6 +44,10 @@ public class CalculatorExecutor {
 
             OperationType operationType = OperationType.fromString(operationDetails.getOperationType());
             int result = operationType.execute(firstNumber, secondNumber);
+
+            if (operationDetails.isNegativeResult()) {
+                result *= -1;
+            }
 
             if(operationDetails.isRoman()) {
                 return decimalToRomanConverter.convert(result);

@@ -5,6 +5,7 @@ public class OperationDetails {
     private String firstOperand;
     private String secondOperand;
     private String operationType;
+    private boolean isNegativeResult;
     private boolean isRoman;
 
     public OperationDetails() {
@@ -22,6 +23,10 @@ public class OperationDetails {
         return operationType;
     }
 
+    public boolean isNegativeResult() {
+        return isNegativeResult;
+    }
+
     public boolean isRoman() {
         return isRoman;
     }
@@ -36,6 +41,10 @@ public class OperationDetails {
 
     public void setOperationType(String operationType) {
         this.operationType = operationType;
+    }
+
+    public void setNegativeResult(boolean isNegativeResult) {
+        this.isNegativeResult = isNegativeResult;
     }
 
     public void setRoman(boolean roman) {

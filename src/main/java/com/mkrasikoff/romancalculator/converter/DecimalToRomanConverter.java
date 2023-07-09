@@ -12,15 +12,6 @@ public class DecimalToRomanConverter {
         StringBuilder stringBuilder = new StringBuilder();
         int times;
 
-        if(num == 0) {
-            return "0";
-        }
-
-        if(num < 0) {
-            stringBuilder.append("-");
-            num = -num;
-        }
-
         for (int i = INTEGER_NUMERALS.length - 1; i >= 0; i--) {
             times = num / INTEGER_NUMERALS[i];
             num %= INTEGER_NUMERALS[i];

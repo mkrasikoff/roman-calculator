@@ -15,12 +15,18 @@ public class InputParser {
     public OperationDetails parse(String input) {
         String[] taskArray = input.split(" ");
 
-        boolean isRoman = isValidRoman(taskArray[0]) && isValidRoman(taskArray[2]);
+        String firstOperand = taskArray[0].trim();
+        String operationType = taskArray[1];
+        String secondOperand = taskArray[2].trim();
+
+        boolean isNegativeResult = firstOperand.startsWith("-") ^ secondOperand.startsWith("-");
+        boolean isRoman = isValidRoman(firstOperand) && isValidRoman(secondOperand);
 
         OperationDetails operationDetails = new OperationDetails();
-        operationDetails.setFirstOperand(taskArray[0]);
-        operationDetails.setOperationType(taskArray[1]);
-        operationDetails.setSecondOperand(taskArray[2]);
+        operationDetails.setFirstOperand(handleNegativeNumbers(firstOperand));
+        operationDetails.setOperationType(operationType);
+        operationDetails.setSecondOperand(handleNegativeNumbers(secondOperand));
+        operationDetails.setNegativeResult(isNegativeResult);
         operationDetails.setRoman(isRoman);
 
         validateOperationDetails(operationDetails);
@@ -49,9 +55,14 @@ public class InputParser {
     }
 
     private boolean isValidRoman(String number) {
+        if (number.startsWith("-")) {
+            number = number.substring(1);
+        }
+
         List<String> validRomanNumerals = Arrays.asList("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI");
         return validRomanNumerals.contains(number);
     }
+
 
     private boolean isValidDecimal(String number) {
         try {
@@ -60,5 +71,12 @@ public class InputParser {
         } catch (NumberFormatException exception) {
             return false;
         }
+    }
+
+    private String handleNegativeNumbers(String input) {
+        if(input.startsWith("-")) {
+            return input.substring(1).trim();
+        }
+        return input;
     }
 }
