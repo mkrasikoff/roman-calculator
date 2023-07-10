@@ -1,5 +1,7 @@
 package com.mkrasikoff.romancalculator.executor;
 
+import com.mkrasikoff.romancalculator.exception.ErrorMessages;
+import com.mkrasikoff.romancalculator.exception.NegativeRomanNumberException;
 import com.mkrasikoff.romancalculator.parser.InputParser;
 import com.mkrasikoff.romancalculator.converter.DecimalToRomanConverter;
 import com.mkrasikoff.romancalculator.converter.RomanToDecimalConverter;
@@ -10,9 +12,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CalculatorExecutor {
-
-    private static final String NUMBER_FORMAT_EXCEPTION = "Wrong input format. Try again with another numbers.";
-    private static final String ROMANS_CANNOT_BE_NEGATIVE_EXCEPTION = "Roman numerals cannot be negative.";
 
     @Autowired
     private InputParser inputParser;
@@ -32,7 +31,7 @@ public class CalculatorExecutor {
 
             if (operationDetails.isRoman()) {
                 if(operationDetails.isNegativeResult()) {
-                    throw new IllegalArgumentException(ROMANS_CANNOT_BE_NEGATIVE_EXCEPTION);
+                    throw new NegativeRomanNumberException(ErrorMessages.MESSAGE_ROMANS_CANNOT_BE_NEGATIVE_EXCEPTION);
                 }
 
                 firstNumber = romanToDecimalConverter.convert(operationDetails.getFirstOperand());
@@ -55,7 +54,7 @@ public class CalculatorExecutor {
                 return Integer.toString(result);
             }
         } catch (NumberFormatException exception) {
-            throw new NumberFormatException(NUMBER_FORMAT_EXCEPTION);
+            throw new NumberFormatException(ErrorMessages.MESSAGE_NUMBER_FORMAT_EXCEPTION);
         }
     }
 }

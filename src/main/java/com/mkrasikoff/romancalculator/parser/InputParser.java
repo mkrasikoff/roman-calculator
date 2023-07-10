@@ -1,16 +1,15 @@
 package com.mkrasikoff.romancalculator.parser;
 
+import com.mkrasikoff.romancalculator.exception.ErrorMessages;
+import com.mkrasikoff.romancalculator.exception.InvalidRomanNumberException;
+import com.mkrasikoff.romancalculator.exception.NumbersOutOfRangeException;
 import com.mkrasikoff.romancalculator.model.OperationDetails;
 import org.springframework.stereotype.Component;
-
 import java.util.Arrays;
 import java.util.List;
 
 @Component
 public class InputParser {
-
-    private final String NUMBERS_RANGE_EXCEPTION = "Operands should be between 1 and 31 inclusive.";
-    private final String INVALID_ROMAN_EXCEPTION = "Invalid Roman numeral.";
 
     public OperationDetails parse(String input) {
         String[] taskArray = input.split(" ");
@@ -50,13 +49,13 @@ public class InputParser {
 
     private void validateRomanOperands(OperationDetails operationDetails) {
         if (!isValidRoman(operationDetails.getFirstOperand()) || !isValidRoman(operationDetails.getSecondOperand())) {
-            throw new IllegalArgumentException(INVALID_ROMAN_EXCEPTION);
+            throw new InvalidRomanNumberException(ErrorMessages.MESSAGE_INVALID_ROMAN_NUMBER_EXCEPTION);
         }
     }
 
     private void validateDecimalOperands(OperationDetails operationDetails) {
         if (!isValidDecimal(operationDetails.getFirstOperand()) || !isValidDecimal(operationDetails.getSecondOperand())) {
-            throw new IllegalArgumentException(NUMBERS_RANGE_EXCEPTION);
+            throw new NumbersOutOfRangeException(ErrorMessages.MESSAGE_NUMBERS_OUT_OF_RANGE_EXCEPTION);
         }
     }
 

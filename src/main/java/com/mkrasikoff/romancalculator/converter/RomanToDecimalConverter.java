@@ -1,5 +1,7 @@
 package com.mkrasikoff.romancalculator.converter;
 
+import com.mkrasikoff.romancalculator.exception.ErrorMessages;
+import com.mkrasikoff.romancalculator.exception.InvalidRomanNumberException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -38,7 +40,7 @@ public class RomanToDecimalConverter {
             case 'X':
                 return 10;
             default:
-                throw new IllegalArgumentException("Invalid roman numeral: " + ch);
+                throw new InvalidRomanNumberException(ErrorMessages.MESSAGE_INVALID_ROMAN_NUMBER_EXCEPTION + ch);
         }
     }
 }
