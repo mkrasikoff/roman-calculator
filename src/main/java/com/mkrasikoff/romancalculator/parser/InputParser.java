@@ -19,8 +19,14 @@ public class InputParser {
         String operationType = taskArray[1];
         String secondOperand = taskArray[2].trim();
 
-        boolean isNegativeResult = firstOperand.startsWith("-") ^ secondOperand.startsWith("-");
         boolean isRoman = isValidRoman(firstOperand) && isValidRoman(secondOperand);
+        boolean isNegativeResult;
+
+        if (isRoman) {
+            isNegativeResult = firstOperand.startsWith("-") || secondOperand.startsWith("-");
+        } else {
+            isNegativeResult = firstOperand.startsWith("-") ^ secondOperand.startsWith("-");
+        }
 
         OperationDetails operationDetails = new OperationDetails();
         operationDetails.setFirstOperand(handleNegativeNumbers(firstOperand));
