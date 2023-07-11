@@ -18,6 +18,8 @@ public class InputParser {
         String operationType = taskArray[1];
         String secondOperand = taskArray[2].trim();
 
+        validateMixedOperands(firstOperand, secondOperand);
+
         boolean isRoman = isValidRoman(firstOperand) && isValidRoman(secondOperand);
         boolean isNegativeResult;
 
@@ -37,6 +39,12 @@ public class InputParser {
         validateOperationDetails(operationDetails);
 
         return operationDetails;
+    }
+
+    private void validateMixedOperands(String firstOperand, String secondOperand) {
+        if ((isValidDecimal(firstOperand) && isValidRoman(secondOperand)) || (isValidRoman(firstOperand) && isValidDecimal(secondOperand))) {
+            throw new NumberFormatException(ErrorMessages.MESSAGE_NUMBER_FORMAT_EXCEPTION);
+        }
     }
 
     private void validateOperationDetails(OperationDetails operationDetails) {
@@ -68,11 +76,10 @@ public class InputParser {
         return validRomanNumerals.contains(number);
     }
 
-
     private boolean isValidDecimal(String number) {
         try {
-            int value = Integer.parseInt(number);
-            return value >= 1 && value <= 31;
+            Integer.parseInt(number);
+            return true;
         } catch (NumberFormatException exception) {
             return false;
         }
