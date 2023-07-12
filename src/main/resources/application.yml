@@ -1,7 +1,7 @@
 spring:
   application:
     name: roman-calculator
-    version: v18
+    version: v19
   banner:
     location: banner.txt
 logging:
